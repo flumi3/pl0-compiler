@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-using namespace std;
-#include "tree.h"
+#include "tree.hpp"
 
+using namespace std;
 
 
 template <class T>  tree<T>::tree(T p) {

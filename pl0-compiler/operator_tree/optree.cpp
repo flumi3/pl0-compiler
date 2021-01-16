@@ -6,9 +6,6 @@ using namespace std;
 // tree entry with type and int value
 opTreeEntry::opTreeEntry(int _t, int _v): type(_t), value(_v) {}
 
-// tree entry with type string value
-opTreeEntry::opTreeEntry(int _t, string _v): type(_t), value(_v) {}
-
 // empty tree entry
 opTreeEntry::opTreeEntry() {}
 
@@ -28,6 +25,18 @@ opTree::opTree(opTreeEntry e, opTree * l, opTree * r) {
 	v = e;
 	append(l), append(r);
 }
+
+/* opTree::print(opTree tree) {
+
+}
+
+opTree::main() {
+	opTree t1 = new opTree(opTreeEntry(treeEntryType::number, 20));
+	opTree t2 = new opTree(opTreeEntry(treeEntryType::number, 5));
+	opTree t = new opTree(opTreeEntry(treeEntryType::minus), t1, t2);
+
+	opTree::print(t);
+} */
 
 /* int opTree::eval() {
 	int value = 0;

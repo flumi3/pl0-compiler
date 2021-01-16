@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "tree.hpp"
-#include "string.h"
 
 using namespace std;
 
@@ -35,7 +35,6 @@ public:
 	int value;
 	opTreeEntry();
 	opTreeEntry(int, int = 0);
-	opTreeEntry(int, string);
 	friend ostream & operator << (ostream &, const opTreeEntry &);
 };
 
