@@ -92,6 +92,8 @@ procedures:
         int rt = st.insert($2, st_proc, ++global_proc_nr);
         if (rt != 0) {
             yyerror((char*)"Error: Could not insert procedure!");
+        } else {
+            // ast erzeugen -> 
         }
     } 
     t_semicolon block t_semicolon
