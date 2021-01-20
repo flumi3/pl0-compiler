@@ -1,11 +1,11 @@
-#include "node.h"
+#include "node.hpp"
 #include <vector>
 
 using namespace std;
 
 class Ast {
 public: 
-    vector<Node> nodes;
+    vector<vector<Node*>> procedures;
     Ast();
-    void append_node(Node);
+    void print();
 };

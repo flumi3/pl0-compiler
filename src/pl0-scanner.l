@@ -1,14 +1,10 @@
 %{
-    #include "y.tab.h"
+    #include "optree.h"
+    #include "ast.hpp"
+    #include "parser.tab.hpp" // include file that got generated from the parser by bison
 
-    int yyerror(char *s);
+    int yyerror(char *s);  // eventuell raus schmeißen
     int lineCounter = 0;
-
-    enum {
-        t_const, t_var, t_procedure, t_call, t_begin, t_end, t_if, t_then, t_while, t_do, t_odd, t_assign, 
-        t_qMark, t_eMark, t_equals, t_hashtag, t_lt, t_lteq, t_gt, t_gteq, t_plus, t_minus, t_mult, 
-        t_div, t_dot, t_comma, t_semicolon, t_br_open, t_br_close, t_integer, t_ident, t_number
-    };
 %}
 
 %%

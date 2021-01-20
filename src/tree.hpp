@@ -21,11 +21,36 @@ public:
 	void append(tree *);
 	void child_copy(tree *); // Evtl zukuenftig
 	int size();
+	void print(int);
 	tree<T> * operator [] (int);
 protected:
 	vector<tree *> child;
 	T v;
 };
+
+template <class T> void tree<T>::print(int counter) {
+	counter++;
+	cout << "type: " << v.type << ", value: " << v.value << endl;
+
+	if (child.size() == 1) {
+		tree* child_1 = child[0];
+		for (int i = counter; i > 0; i--) {
+			cout << "\t";
+		}
+		child_1->print(counter);
+	} else if (child.size() == 2) {
+		tree* child_1 = child[0];
+		tree* child_2 = child[1];
+		for (int i = counter; i > 0; i--) {
+			cout << "\t left: ";
+		}
+		child_1->print(counter);
+		for (int i = counter; i > 0; i--) {
+			cout << "\t right: ";
+		}
+		child_2->print(counter);
+	}
+}
 
 template <class T> tree<T> * tree<T>::operator [] (int index) {
 	return (index < 0 || index >= child.size()) ? nullptr : child[index];

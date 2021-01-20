@@ -1,7 +1,7 @@
 # makefile fuer PL/0-Compiler
 # 
 #
-OBJECTS=main.o parser.o lex.yy.o symtab.o ast.o interpreter.o optimierer.o
+OBJECTS=main.o parser.o lex.yy.o symtab.o optree.o node.o ast.o 
 
 # Executable
 pl-0: $(OBJECTS) *.y *.l
@@ -25,9 +25,20 @@ lex.yy.o: pl0-scanner.l
 symtab.o: pl0-symtab.cpp pl0-symtab.hpp
 	$(CPP) -c pl0-symtab.cpp -o symtab.o
 
-# Zwischencode
-# ast.o:	pl0-ast.cpp pl0-ast.hpp
-# 	$(CPP) -c pl0-ast.cpp -o ast.o
+# OperatorTree
+optree.o: optree.cpp optree.h
+	$(CPP) -c optree.cpp -o optree.o
+
+##### Zwischencode #####
+node.o: node.cpp node.hpp
+	$(CPP) -c node.cpp -o node.o
+
+# AbstractSyntraxTree
+ast.o:	ast.cpp ast.hpp
+	$(CPP) -c ast.cpp -o ast.o
+
+ast_test.o: ast.cpp ast.hpp
+	$(CPP) optree.cpp node.cpp ast.cpp -o ast.o
 
 # Interpreter
 # interpreter.o: pl0-interpreter.cpp pl0-interpreter.hpp
