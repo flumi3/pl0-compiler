@@ -5,12 +5,12 @@ OBJECTS=main.o parser.o lex.yy.o symtab.o optree.o node.o ast.o
 
 # Executable
 pl-0: $(OBJECTS) *.y *.l
-	$(CPP) $(OBJECTS) -o pl-0
+	$(CPP) -g $(OBJECTS) -o pl-0
 
 # YACC-Parser
 parser.o:	pl0-y-parser.y
 	yacc pl0-y-parser.y -d -b parser -o parser.tab.cpp
-	$(CPP) -c parser.tab.cpp -o parser.o
+	$(CPP) -g -c parser.tab.cpp -o parser.o
 
 # RD-Parser
 # parser.o:	pl0-rd-parser.cpp
@@ -19,26 +19,26 @@ parser.o:	pl0-y-parser.y
 #Scanner
 lex.yy.o: pl0-scanner.l
 	lex -o lex.yy.cpp pl0-scanner.l
-	$(CPP) -c lex.yy.cpp
+	$(CPP) -g -c lex.yy.cpp
 
 # Symboltabelle
 symtab.o: pl0-symtab.cpp pl0-symtab.hpp
-	$(CPP) -c pl0-symtab.cpp -o symtab.o
+	$(CPP) -g -c pl0-symtab.cpp -o symtab.o
 
 # OperatorTree
 optree.o: optree.cpp optree.h
-	$(CPP) -c optree.cpp -o optree.o
+	$(CPP) -g -c optree.cpp -o optree.o
 
 ##### Zwischencode #####
 node.o: node.cpp node.hpp
-	$(CPP) -c node.cpp -o node.o
+	$(CPP) -g -c node.cpp -o node.o
 
 # AbstractSyntraxTree
 ast.o:	ast.cpp ast.hpp
-	$(CPP) -c ast.cpp -o ast.o
+	$(CPP) -g -c ast.cpp -o ast.o
 
-ast_test.o: ast.cpp ast.hpp
-	$(CPP) optree.cpp node.cpp ast.cpp -o ast.o
+ast_test: ast.cpp ast.hpp
+	$(CPP) -g optree.cpp node.cpp ast.cpp -o ast.o
 
 # Interpreter
 # interpreter.o: pl0-interpreter.cpp pl0-interpreter.hpp
@@ -50,10 +50,10 @@ ast_test.o: ast.cpp ast.hpp
 
 # Hauptprogramm
 main.o: pl0.cpp
-	$(CPP) -c pl0.cpp -o main.o
+	$(CPP) -g -c pl0.cpp -o main.o
 
 clean:
-	rm -f $(OBJECTS) parser.tab.* lex.yy.*
+	rm -f $(OBJECTS) parser.tab.* lex.yy.* pl-0
 
 clean-all: clean
 	rm -f pl-0
