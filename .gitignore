@@ -1,5 +1,7 @@
 *.o
 lex.yy.c
 *.out
-pl0-compiler/y.tab.c
+parser.tab.cpp
+parser.tab.hpp
+pl-0
 .vscode
