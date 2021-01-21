@@ -1,5 +1,5 @@
 *.o
 lex.yy.c
 *.out
-pl0-compiler/y.tab.c
-.vscode/settings.json
+pl-0
+.vscode
