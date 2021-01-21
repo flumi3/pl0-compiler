@@ -6,7 +6,7 @@
     int lineCounter = 0;
 
     void print_scan(char *s) {
-        printf("\x1b[33mscan: %s \x1b[0m \n", s);
+        printf("\x1b[33mscan line[%d]: %s \x1b[0m \n", lineCounter, s);
     }
 %}
 
