@@ -22,7 +22,7 @@ main.o: pl0.cpp
 	$(CPP) -c pl0.cpp -o main.o
 
 clean:
-	rm -f $(OBJECTS) parser.tab.* lex.yy.*
+	rm -f $(OBJECTS) parser.tab.* lex.yy.* pl-0
 
 clean-all: clean
 	rm -f pl-0
