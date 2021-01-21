@@ -4,9 +4,12 @@
     int yyerror(char *s);
     void print_scan(char *s);  
     int lineCounter = 0;
-
+    
+    int print = 1;  // bool variable that tells whether to print the scanned text or not, 0 = yes, other = no
     void print_scan(char *s) {
-        printf("\x1b[33mscan line[%d]: %s \x1b[0m \n", lineCounter, s);
+        if (print == 0) {
+            printf("\x1b[33mscan line[%d]: %s \x1b[0m \n", lineCounter, s);
+        }
     }
 %}
 
