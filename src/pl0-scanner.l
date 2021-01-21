@@ -1,6 +1,4 @@
 %{
-    #include "optree.h"
-    #include "ast.hpp"
     #include "parser.tab.hpp" // include file that got generated from the parser by bison
 
     int yyerror(char *s);  // eventuell raus schmeißen

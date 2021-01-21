@@ -2,4 +2,4 @@
 lex.yy.c
 *.out
 pl0-compiler/y.tab.c
-.vscode/settings.json
+.vscode
