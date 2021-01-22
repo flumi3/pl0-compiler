@@ -9,8 +9,8 @@ Return code 0 in case of successful parsing of the pl0 program.
 - Flex
 
 ### Usage example (Linux)
-$ cd src    
-$ export CPP=g++ # specify compiler    
-$ make    
-$ ./pl-0 /some/where/test # without .pl0 extension    
-$ echo $? # pl-0 return code    
+$ cd src  
+$ export CPP=g++  
+$ make  
+$ ./pl-0 /some/where/test  
+$ echo $?  
