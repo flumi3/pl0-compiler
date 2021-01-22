@@ -8,8 +8,8 @@ When running this with a pl0 program, it will only perform a lexical and syntact
 - Flex
 
 ### Usage example (Linux)
-$ cd src  
-$ export CPP=g++  // specify compiler  
-$ make  
-$ ./pl-0 /some/where/test  // without .pl0 extension  
-$ echo $?  // pl-0 return code  
+$ cd src    
+$ export CPP=g++ # specify compiler    
+$ make    
+$ ./pl-0 /some/where/test # without .pl0 extension    
+$ echo $? # pl-0 return code    
