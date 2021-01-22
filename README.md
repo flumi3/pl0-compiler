@@ -12,5 +12,5 @@ Return code 0 in case of successful parsing of the pl0 program.
 $ cd src  
 $ export CPP=g++  
 $ make  
-$ ./pl-0 /some/where/test  
+$ ./pl-0 ./../pl0-programs/printPrimes  
 $ echo $?  
