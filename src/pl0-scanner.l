@@ -1,11 +1,11 @@
 %{
     #include "parser.tab.hpp" // include file that got generated from the parser by bison
 
-    int yyerror(char *s);
+    int yyerror(char const *s);
     void print_scan(char *s);  
     int lineCounter = 0;
     
-    int print = 1;  // bool variable that tells whether to print the scanned text or not, 0 = yes, other = no
+    int print = 0;  // bool variable that tells whether to print the scanned text or not, 0 = yes, other = no
     void print_scan(char *s) {
         if (print == 0) {
             printf("\x1b[33mscan line[%d]: %s \x1b[0m \n", lineCounter, s);
@@ -13,18 +13,20 @@
     }
 %}
 
+%option case-insensitive
+
 %%
-"CONST"|"const"             { print_scan(yytext); return t_const; }
-"VAR"|"var"                 { print_scan(yytext); return t_var; }
-"PROCEDURE"|"procedure"     { print_scan(yytext); return t_procedure; }
-"CALL"|"call"               { print_scan(yytext); return t_call; }
-"BEGIN"|"BEGIN"             { print_scan(yytext); return t_begin; }
-"END"|"end"                 { print_scan(yytext); return t_end; }
-"IF"|"if"                   { print_scan(yytext); return t_if; }
-"THEN"|"then"               { print_scan(yytext); return t_then; }
-"WHILE"|"while"             { print_scan(yytext); return t_while; }
-"DO"|"do"                   { print_scan(yytext); return t_do; }
-"ODD"|"odd"                 { print_scan(yytext); return t_odd; }
+"CONST"         { print_scan(yytext); return t_const; }
+"VAR"           { print_scan(yytext); return t_var; }
+"PROCEDURE"     { print_scan(yytext); return t_procedure; }
+"CALL"          { print_scan(yytext); return t_call; }
+"BEGIN"         { print_scan(yytext); return t_begin; }
+"END"           { print_scan(yytext); return t_end; }
+"IF"            { print_scan(yytext); return t_if; }
+"THEN"          { print_scan(yytext); return t_then; }
+"WHILE"         { print_scan(yytext); return t_while; }
+"DO"            { print_scan(yytext); return t_do; }
+"ODD"           { print_scan(yytext); return t_odd; }
 
 ":="        { print_scan(yytext); return t_assign; }
 "?"         { print_scan(yytext); return t_qMark; }
@@ -50,7 +52,7 @@
 
 [0-9]+                  { print_scan(yytext); yylval.num = atoi(yytext); return t_number; }
 [a-zA-Z][a-zA-Z0-9_]*   { print_scan(yytext); strncpy(yylval.txt, yytext, 16); return t_ident; }
-\n                      { print_scan("\\n"); lineCounter++; }
+\n                      { print_scan((char*)"\\n"); lineCounter++; }
 [ \t]+                  { ; /* do nothing */ }
 .                       { printf("Syntax error on line %d", lineCounter); }
 %%

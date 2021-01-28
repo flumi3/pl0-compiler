@@ -1,33 +1,13 @@
 %{
     #include <stdio.h>
-    #include <vector>
+    #include "pl0-symtab.hpp"
 
     int yylex();
-    int yyerror(char *s);
+    int yyerror(char const *s);
 
     int global_proc_nr = 0;
     int local_var_nr = 0;
-
-    /* 
-    list that holds all procedures and their nodes. 
-    
-    Example:
-    procedure f;
-        a := 1;
-
-    ...
-
-    procedure g;
-        begin
-            call f;
-            ! 3;
-        end;
-
-    Then the list holds 3 procedures (vectors):
-        - Main procedure (always at index 0)
-        - Procedure f on index 1 containing its AssignNode
-        - Procedure g on index 2 containing its CallNode and WriteNode
-    */ 
+    symtab st;
 %}
 
 %union {
@@ -47,10 +27,9 @@
 
 %%
 program:
-    block t_dot {
-        // Ast ast;
-        // ast.nodes = $1
-    }
+    { st.level_up(); }
+    block t_dot
+    { st.level_down(); }
     ;
 
 block:
@@ -67,8 +46,20 @@ constant_declaration:
     ;
 
 constants:
-    t_ident t_equals t_number
-    | constants t_comma t_ident t_equals t_number
+    t_ident t_equals t_number {
+        int rt = st.insert($1, st_const, $3);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert constant");
+            return 1;
+        }
+    }
+    | constants t_comma t_ident t_equals t_number {
+        int rt = st.insert($3, st_const, $5);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert constant");
+            return 1;
+        }
+    }
     ;
 
 variable_declaration:
@@ -77,8 +68,20 @@ variable_declaration:
     ;
 
 variables:
-    t_ident
-    | variables t_comma t_ident
+    t_ident {
+        int rt = st.insert($1, st_var, ++local_var_nr);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert variable!");
+            return 1;
+        } 
+    }
+    | variables t_comma t_ident {
+        int rt = st.insert($3, st_var, ++local_var_nr);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert variable!");
+            return 1;
+        }
+    }
     ;
 
 procedure_declaration:
@@ -87,13 +90,33 @@ procedure_declaration:
     ;
 
 procedures:
-    t_procedure t_ident t_semicolon block t_semicolon
-    | procedures t_procedure t_ident t_semicolon block t_semicolon
+    t_procedure t_ident t_semicolon block t_semicolon {
+        int rt = st.insert($2, st_proc, ++global_proc_nr);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert procedure!");
+        }
+    }
+    | procedures t_procedure t_ident t_semicolon block t_semicolon {
+         int rt = st.insert($3, st_proc, ++global_proc_nr);
+        if (rt != 0) {
+            yyerror((char*)"Error: Could not insert procedure!");
+        }
+    }
     ;
 
 statement:
     t_ident t_assign expression
-    | t_call t_ident
+    | t_call t_ident {
+        int stl, sto;
+        int rt = st.lookup($2, st_proc, stl, global_proc_nr);
+        if (rt == -1) {
+            yyerror((char*)"Error: Wrong type!");
+            return 1;
+        } else if (rt == -2) {
+            yyerror((char*)"Error: Not found!");
+            return 1;
+        }
+    }
     | t_qMark t_ident
     | t_eMark expression
     | t_begin statements t_end
@@ -105,7 +128,6 @@ statement:
 statements:
     statement
     | statements t_semicolon statement
-    | /* empty */
     ;
 
 condition:

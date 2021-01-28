@@ -4,12 +4,11 @@
 
 using namespace std;
 
-int yyerror(char *s) {
-    fprintf(stderr, "%s\n", s);
-    return -1;
-}
-
 int yyparse();
+
+void yyerror(char const *s) {
+    fprintf(stderr, "%s\n", s);
+}
 
 int main(int argc, char* argv[]) {
     extern FILE *yyin;
@@ -28,6 +27,5 @@ int main(int argc, char* argv[]) {
     // open the file and pass it as input to the lexer 
     yyin = fopen(filePath, "r");
 
-    int rc = yyparse();
-    return rc;
+    return yyparse();
 }
