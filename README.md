@@ -8,9 +8,14 @@ Return code 0 in case of successful parsing of the pl0 program.
 - Bison
 - Flex
 
-### Usage example (Linux)
+### Usage example
 $ cd src  
 $ export CPP=g++  
 $ make  
 $ ./pl-0 ./../pl0-programs/printPrimes  
 $ echo $?  
+
+### Compile and analyse all pl0 programs
+$ cd src
+$ sudo chmod u+x ./test.sh
+$ ./test.sh
