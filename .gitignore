@@ -1,8 +1,0 @@
-*.o
-lex.yy.c
-*.out
-pl-0
-.vscode
-parser.tab.cpp
-parser.tab.hpp
-lex.yy.cpp
