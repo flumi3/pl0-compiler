@@ -16,6 +16,6 @@ $ ./pl-0 ./../pl0-programs/printPrimes
 $ echo $?  
 
 ### Compile and analyse all pl0 programs
-$ cd src
-$ sudo chmod u+x ./test.sh
-$ ./test.sh
+$ cd src  
+$ sudo chmod u+x ./test.sh  
+$ ./test.sh  
