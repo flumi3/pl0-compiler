@@ -90,17 +90,25 @@ procedure_declaration:
     ;
 
 procedures:
-    t_procedure t_ident t_semicolon block t_semicolon {
+    t_procedure t_ident t_semicolon {
         int rt = st.insert($2, st_proc, ++global_proc_nr);
         if (rt != 0) {
             yyerror((char*)"Error: Could not insert procedure!");
+        } else {
+            st.level_up();
         }
+    } block t_semicolon {
+        st.level_down();
     }
-    | procedures t_procedure t_ident t_semicolon block t_semicolon {
-         int rt = st.insert($3, st_proc, ++global_proc_nr);
+    | procedures t_procedure t_ident t_semicolon {
+        int rt = st.insert($3, st_proc, ++global_proc_nr);
         if (rt != 0) {
             yyerror((char*)"Error: Could not insert procedure!");
+        } else {
+            st.level_up();
         }
+    } block t_semicolon {
+        st.level_down();
     }
     ;
 
@@ -119,7 +127,7 @@ statement:
     }
     | t_qMark t_ident
     | t_eMark expression
-    | t_begin statements t_end
+    | t_begin { st.level_up(); } statements t_end { st.level_down(); }
     | t_if condition t_then statement
     | t_while condition t_do statement
     | /* empty */
