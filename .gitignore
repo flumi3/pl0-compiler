@@ -1,0 +1,8 @@
+*.o
+lex.yy.c
+*.out
+parser.tab.cpp
+parser.tab.hpp
+lex.yy.cpp
+pl-0
+.vscode
