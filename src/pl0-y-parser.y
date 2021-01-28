@@ -94,6 +94,7 @@ procedures:
         int rt = st.insert($2, st_proc, ++global_proc_nr);
         if (rt != 0) {
             yyerror((char*)"Error: Could not insert procedure!");
+            return 1;
         } else {
             st.level_up();
         }
@@ -104,6 +105,7 @@ procedures:
         int rt = st.insert($3, st_proc, ++global_proc_nr);
         if (rt != 0) {
             yyerror((char*)"Error: Could not insert procedure!");
+            return 1;
         } else {
             st.level_up();
         }
@@ -127,7 +129,7 @@ statement:
     }
     | t_qMark t_ident
     | t_eMark expression
-    | t_begin { st.level_up(); } statements t_end { st.level_down(); }
+    | t_begin statements t_end
     | t_if condition t_then statement
     | t_while condition t_do statement
     | /* empty */
