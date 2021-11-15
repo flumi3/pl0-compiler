@@ -9,14 +9,18 @@ Return code is 0 in case of successful parsing of the pl0 program.
 - Flex
 
 ### Usage example
-$ cd src  
-$ export CPP=g++  
-$ export CC=gcc  
-$ make  
-$ ./pl-0 ./../pl0-programs/printPrimes  
-$ echo $?  
+```shell
+cd src  
+export CPP=g++  
+export CC=gcc  
+make  
+./pl-0 ./../pl0-programs/printPrimes  
+echo $?
+```
 
 ### Compile and analyse all pl0 programs
-$ cd src  
-$ sudo chmod u+x ./test.sh  
-$ ./test.sh  
+```shell
+cd src  
+sudo chmod u+x ./test.sh  
+./test.sh
+```
